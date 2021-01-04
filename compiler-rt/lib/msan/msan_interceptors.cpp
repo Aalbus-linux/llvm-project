@@ -57,6 +57,9 @@ DECLARE_REAL(SIZE_T, strlen, const char *s)
 DECLARE_REAL(SIZE_T, strnlen, const char *s, SIZE_T maxlen)
 DECLARE_REAL(void *, memcpy, void *dest, const void *src, uptr n)
 DECLARE_REAL(void *, memset, void *dest, int c, uptr n)
+#if SANITIZER_NONGNU
+DECLARE_REAL(int, shmctl, int shmid, int cmd, void *buf)
+#endif
 
 // True if this is a nested interceptor.
 static THREADLOCAL int in_interceptor_scope;

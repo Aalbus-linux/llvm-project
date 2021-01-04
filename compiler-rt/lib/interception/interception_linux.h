@@ -36,7 +36,7 @@ bool InterceptFunction(const char *name, const char *ver, uptr *ptr_to_real,
       (::__interception::uptr) & WRAP(func))
 
 // Android and Solaris do not have dlvsym
-#if !SANITIZER_ANDROID && !SANITIZER_SOLARIS
+#if !SANITIZER_ANDROID && !SANITIZER_SOLARIS && !SANITIZER_NONGNU
 #define INTERCEPT_FUNCTION_VER_LINUX_OR_FREEBSD(func, symver) \
   ::__interception::InterceptFunction(                        \
       #func, symver,                                          \
@@ -46,7 +46,7 @@ bool InterceptFunction(const char *name, const char *ver, uptr *ptr_to_real,
 #else
 #define INTERCEPT_FUNCTION_VER_LINUX_OR_FREEBSD(func, symver) \
   INTERCEPT_FUNCTION_LINUX_OR_FREEBSD(func)
-#endif  // !SANITIZER_ANDROID && !SANITIZER_SOLARIS
+#endif  // !SANITIZER_ANDROID && !SANITIZER_SOLARIS && !SANITIZER_OPENBSD && !SANITIZER_NONGNU
 
 #endif  // INTERCEPTION_LINUX_H
 #endif  // SANITIZER_LINUX || SANITIZER_FREEBSD || SANITIZER_NETBSD ||

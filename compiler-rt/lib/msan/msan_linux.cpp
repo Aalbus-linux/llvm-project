@@ -12,7 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "sanitizer_common/sanitizer_platform.h"
-#if SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD
+#if SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD && !SANITIZER_NONGNU
 
 #include "msan.h"
 #include "msan_report.h"
@@ -258,4 +258,4 @@ void MsanTSDDtor(void *tsd) {
 
 } // namespace __msan
 
-#endif // SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD
+#endif // SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD && !SANITIZER_NONGNU

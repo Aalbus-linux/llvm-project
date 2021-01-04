@@ -35,7 +35,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include <list>
 #include <map>
-#include <plugin-api.h>
+#include "plugin-api.h"
 #include <string>
 #include <system_error>
 #include <utility>

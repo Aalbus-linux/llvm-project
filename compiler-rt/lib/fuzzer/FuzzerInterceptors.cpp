@@ -24,6 +24,7 @@
   FUNC_TYPE(func) PTR_TO_REAL(func);                                           \
   }
 
+#include <cstddef>
 #include <cassert>
 #include <cstdint>
 #include <dlfcn.h> // for dlsym()

@@ -14,7 +14,7 @@
 #include "sanitizer_platform.h"
 
 #if SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD || \
-    SANITIZER_SOLARIS
+    SANITIZER_SOLARIS || SANITIZER_NONGNU
 
 #include "sanitizer_allocator_internal.h"
 #include "sanitizer_atomic.h"
@@ -184,7 +184,7 @@ __attribute__((unused)) static bool GetLibcVersion(int *major, int *minor,
 }
 
 #if !SANITIZER_FREEBSD && !SANITIZER_ANDROID && !SANITIZER_GO && \
-    !SANITIZER_NETBSD && !SANITIZER_SOLARIS
+    !SANITIZER_NETBSD && !SANITIZER_SOLARIS && !SANITIZER_NONGNU
 static uptr g_tls_size;
 
 #ifdef __i386__
@@ -261,7 +261,7 @@ void InitTlsSize() { }
 #if (defined(__x86_64__) || defined(__i386__) || defined(__mips__) ||       \
      defined(__aarch64__) || defined(__powerpc64__) || defined(__s390__) || \
      defined(__arm__) || SANITIZER_RISCV64) &&                              \
-    SANITIZER_LINUX && !SANITIZER_ANDROID
+    SANITIZER_LINUX && !SANITIZER_ANDROID && !SANITIZER_NONGNU
 // sizeof(struct pthread) from glibc.
 static atomic_uintptr_t thread_descriptor_size;
 
@@ -467,7 +467,7 @@ static void GetTls(uptr *addr, uptr *size) {
     *addr = 0;
     *size = 0;
   }
-#elif SANITIZER_LINUX
+#elif SANITIZER_LINUX && !SANITIZER_NONGNU
 #if defined(__x86_64__) || defined(__i386__) || defined(__s390__)
   *addr = ThreadSelf();
   *size = GetTlsSize();
@@ -508,7 +508,7 @@ static void GetTls(uptr *addr, uptr *size) {
       *addr = (uptr)tcb->tcb_dtv[1];
     }
   }
-#elif SANITIZER_SOLARIS
+#elif SANITIZER_SOLARIS || SANITIZER_NONGNU
   // FIXME
   *addr = 0;
   *size = 0;
@@ -521,7 +521,7 @@ static void GetTls(uptr *addr, uptr *size) {
 #if !SANITIZER_GO
 uptr GetTlsSize() {
 #if SANITIZER_FREEBSD || SANITIZER_ANDROID || SANITIZER_NETBSD || \
-    SANITIZER_SOLARIS
+    SANITIZER_SOLARIS || SANITIZER_NONGNU
   uptr addr, size;
   GetTls(&addr, &size);
   return size;

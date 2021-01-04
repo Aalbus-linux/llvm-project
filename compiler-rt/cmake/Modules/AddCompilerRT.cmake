@@ -620,6 +620,8 @@ macro(add_custom_libcxx name prefix)
                -DLLVM_LIBRARY_OUTPUT_INTDIR=${prefix}/lib
                -DCOMPILER_RT_LIBCXX_PATH=${COMPILER_RT_LIBCXX_PATH}
                -DCOMPILER_RT_LIBCXXABI_PATH=${COMPILER_RT_LIBCXXABI_PATH}
+               -DLIBCXX_HAS_MUSL_LIBC=ON
+               -DLIBCXX_HAS_GCC_S_LIB=OFF
                ${LIBCXX_CMAKE_ARGS}
     INSTALL_COMMAND ""
     STEP_TARGETS configure build

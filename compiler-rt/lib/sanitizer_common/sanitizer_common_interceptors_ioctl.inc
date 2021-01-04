@@ -103,7 +103,7 @@ static void ioctl_table_fill() {
   _(SIOCGETVIFCNT, WRITE, struct_sioc_vif_req_sz);
 #endif
 
-#if SANITIZER_LINUX
+#if SANITIZER_LINUX && !SANITIZER_NONGNU
   // Conflicting request ids.
   // _(CDROMAUDIOBUFSIZ, NONE, 0);
   // _(SNDCTL_TMR_CONTINUE, NONE, 0);
@@ -364,7 +364,7 @@ static void ioctl_table_fill() {
   _(VT_WAITACTIVE, NONE, 0);
 #endif
 
-#if SANITIZER_LINUX && !SANITIZER_ANDROID
+#if SANITIZER_LINUX && !SANITIZER_ANDROID && !SANITIZER_NONGNU
   // _(SIOCDEVPLIP, WRITE, struct_ifreq_sz); // the same as EQL_ENSLAVE
   _(CYGETDEFTHRESH, WRITE, sizeof(int));
   _(CYGETDEFTIMEOUT, WRITE, sizeof(int));

@@ -2037,7 +2037,7 @@ POST_SYSCALL(setrlimit)(long res, long resource, void *rlim) {
   }
 }
 
-#if !SANITIZER_ANDROID
+#if !SANITIZER_ANDROID && !SANITIZER_NONGNU
 PRE_SYSCALL(prlimit64)(long pid, long resource, const void *new_rlim,
                        void *old_rlim) {
   if (new_rlim) PRE_READ(new_rlim, struct_rlimit64_sz);
